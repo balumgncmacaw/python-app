@@ -1,43 +1,21 @@
 version: 2.1
 
 jobs:
-  build:
+  test:
+    parameters:
+      node-version:
+        type: string
     docker:
-      - image: cimg/python:3.11
+      - image: cimg/node:<< parameters.node-version >>
     steps:
-      - run: echo "Building..."
-
-  test_a:
-    docker:
-      - image: cimg/python:3.11
-    steps:
-      - run: echo "Running Test A"
-
-  test_b:
-    docker:
-      - image: cimg/python:3.11
-    steps:
-      - run: echo "Running Test B"
-
-  deploy-dev:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - run: echo "Deploying..."
-
-  deploy-qa:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - run: echo "Deploying..."
-
+      - checkout
+      - run: node --version
+      - run: npm test
 
 workflows:
-  branch_based:
+  matrix_pipeline:
     jobs:
-      - build
-      - deploy-dev
-      - deploy-qa:
-          filters:
-            branches:
-              only: develop
+      - test:
+          matrix:
+            parameters:
+              node-version: ["14.21", "16.20", "18.17"]
