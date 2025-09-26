@@ -9,6 +9,6 @@ jobs:
       - run: echo "Hello, CircleCI!" 
 
 workflows:
-  build:
+  build-workflows:
     jobs:
       - hello-world
