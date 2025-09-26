@@ -1,26 +1,15 @@
 version: 2.1
 
 jobs:
-  build:
+  build-and-test:
     docker:
-      - image: cimg/node:18.17
+      - image: cimg/node:18.17   # Official CircleCI Node.js image
     steps:
-      - run: echo "Build done"
-
-  deploy:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - run: echo "Deploying to Production..."
+      - checkout                 # Pull the code from GitHub
+      - run: npm install         # Install dependencies
+      - run: npm test            # Run tests
 
 workflows:
-  approval_pipeline:
+  simple_pipeline:
     jobs:
-      - build
-      - hold_for_approval:
-          type: approval
-          requires:
-            - build
-      - deploy:
-          requires:
-            - hold_for_approval
+      - build-and-test
