@@ -38,7 +38,7 @@ workflows:
             - hello-world 
       - hello-world-2:
           requires: 
-            - hello-world-1 
+            - hello-world 
       - hello-world-3:
           requires: 
-            - hello-world-2 
+            - hello-world 
