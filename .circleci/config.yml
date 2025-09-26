@@ -19,20 +19,24 @@ jobs:
     steps:
       - run: echo "Running Test B"
 
-  deploy:
+  deploy-dev:
     docker:
       - image: cimg/base:stable
     steps:
       - run: echo "Deploying..."
 
+  deploy-qa:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run: echo "Deploying..."
+
+
 workflows:
   branch_based:
     jobs:
       - build
-      - deploy:
-          filters:
-            branches:
-              only: main
+      - deploy-dev
       - staging_deploy:
           filters:
             branches:
