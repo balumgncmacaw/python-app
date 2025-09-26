@@ -1,13 +1,14 @@
 version: 2.1
 
-jobs: 
-  hello-world: 
-    docker: 
-      - image: cimg/base:stable
-    steps: 
-      run: echo "Hello, Circleci"
+jobs:
+  hello-world:
+    docker:
+      - image: cimg/base:stable  # CircleCI Docker image
+    steps:
+      - checkout                # Pulls your repo
+      - run: echo "Hello, CircleCI!" 
 
-
-workflow: 
-  build-workflow-name
-    jobs 
+workflows:
+  build:
+    jobs:
+      - hello-world
