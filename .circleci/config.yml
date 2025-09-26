@@ -7,8 +7,30 @@ jobs:
     steps:
       - checkout                # Pulls your repo
       - run: echo "Hello, CircleCI!" 
+  hello-world-1:
+    docker:
+      - image: cimg/base:stable  # CircleCI Docker image
+    steps:
+      - checkout                # Pulls your repo
+      - run: echo "Hello, CircleCI!" 
+  
+  hello-world-2:
+    docker:
+      - image: cimg/base:stable  # CircleCI Docker image
+    steps:
+      - checkout                # Pulls your repo
+      - run: echo "Hello, CircleCI!" 
+  hello-world-3:
+    docker:
+      - image: cimg/base:stable  # CircleCI Docker image
+    steps:
+      - checkout                # Pulls your repo
+      - run: echo "Hello, CircleCI!" 
 
 workflows:
   build-workflows:
     jobs:
       - hello-world
+      - hello-world-1
+      - hello-world-2
+      - hello-world-3
