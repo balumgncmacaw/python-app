@@ -31,6 +31,9 @@ workflows:
   build-workflows:
     jobs:
       - hello-world
-      - hello-world-1
-      - hello-world-2
-      - hello-world-3
+      - hello-world-1:
+          requires: hello-world 
+      - hello-world-2:
+          requires: hello-world-1 
+      - hello-world-3:
+          requires: hello-world-2 
