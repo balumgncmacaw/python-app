@@ -1,42 +1,39 @@
 version: 2.1
 
 jobs:
-  hello-world:
+  build:
     docker:
-      - image: cimg/base:stable  # CircleCI Docker image
+      - image: cimg/python:3.11
     steps:
-      - checkout                # Pulls your repo
-      - run: echo "Hello, CircleCI!" 
+      - run: echo "Building..."
 
-  hello-world-1:
+  test_a:
     docker:
-      - image: cimg/base:stable  # CircleCI Docker image
+      - image: cimg/python:3.11
     steps:
-      - checkout                # Pulls your repo
-      - run: echo "Hello, CircleCI!" 
-  
-  hello-world-2:
-    docker:
-      - image: cimg/base:stable  # CircleCI Docker image
-    steps:
-      - checkout                # Pulls your repo
-      - run: echo "Hello, CircleCI!"
+      - run: echo "Running Test A"
 
-  hello-world-3:
+  test_b:
     docker:
-      - image: cimg/base:stable  # CircleCI Docker image
+      - image: cimg/python:3.11
     steps:
-      - checkout                # Pulls your repo
-      - run: echo "Hello, CircleCI!" 
+      - run: echo "Running Test B"
+
+  deploy:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run: echo "Deploying..."
 
 workflows:
-  build-workflows:
+  branch_based:
     jobs:
-      - hello-world
-      - hello-world-1
-      - hello-world-2
-      - hello-world-3:
-          requires: 
-            - hello-world 
-            - hello-world
-            - hello-world-2
+      - build
+      - deploy:
+          filters:
+            branches:
+              only: main
+      - staging_deploy:
+          filters:
+            branches:
+              only: develop
